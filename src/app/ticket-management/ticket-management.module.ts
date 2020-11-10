@@ -17,6 +17,7 @@ import {MatMenuModule} from '@angular/material/menu';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DetailTicketComponent } from './detail-ticket/detail-ticket.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [TicketManagementComponent, AddTicketComponent, DetailTicketComponent],
@@ -33,7 +34,8 @@ import { DetailTicketComponent } from './detail-ticket/detail-ticket.component';
     MatProgressSpinnerModule,
     MatTableModule,
     MatInputModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSelectModule
   ],
   entryComponents: [AddTicketComponent]
 })

@@ -8,12 +8,15 @@ table ,tr{
 
 }
 
-.mat-table {
-  & tr {
-    width: 100%;
-  }
+th.mat-header-cell {
+  width: 40%;
 }
 .mat-form-field {
   font-size: 14px;
   width: 100%;
+}
+
+
+.mat-row:hover {
+  background-color: #e0e0e0;
 }

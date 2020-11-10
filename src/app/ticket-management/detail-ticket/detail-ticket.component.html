@@ -1,1 +1,41 @@
-<p>detail-ticket works!</p>
+<div *ngIf="ticket$ | async as ticket" class="container">
+  <div>
+    <h3><b>ID of ticket:</b> {{ ticket.id }}</h3>
+    <h4><b>Description of ticket:</b> {{ ticket.description }}</h4>
+    <h4><b>Assign of ticket:</b> {{ ticket.description }}</h4>
+    <h4>
+      <b>Completed:</b> {{ ticket.completed ? "completed" : "in progress" }}
+    </h4>
+
+    <div class="edit" *ngIf="isEdit">
+      <div>
+        <h4>Edit user assign</h4>
+        <mat-form-field appearance="fill">
+          <mat-label>User</mat-label>
+          <mat-select [(ngModel)]="userValue">
+            <mat-option *ngFor="let user of users$ | async" [value]="user.id">
+              {{ user.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div *ngIf="!ticket.completed">
+        <h4>Completed</h4>
+        <mat-form-field appearance="fill">
+          <mat-label>etat</mat-label>
+          <mat-select [(ngModel)]="etatValue">
+            <mat-option [value]="true"> completed </mat-option>
+            <mat-option [value]="false"> in progress </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <p>
+      <button mat-button (click)="save()">Save</button>
+
+      <button mat-button (click)="edit()">Edit</button>
+
+      <button mat-button (click)="cancel()">Back</button>
+    </p>
+  </div>
+</div>

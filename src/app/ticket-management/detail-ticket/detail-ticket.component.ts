@@ -1,4 +1,10 @@
+import { BackendService } from './../../core/services/backend.service';
+import { Ticket } from './../../core/interfaces/ticket.interface';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { User } from 'src/app/core/interfaces/user.interface';
 
 @Component({
   selector: 'app-detail-ticket',
@@ -6,10 +12,46 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./detail-ticket.component.scss']
 })
 export class DetailTicketComponent implements OnInit {
-
-  constructor() { }
+  ticket$: Observable<any>;
+  isEdit = false;
+  public readonly users$: Observable<User[]> = this.backendService.users();
+  ticket: Ticket;
+  etatValue: boolean;
+  userValue: number;
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private backendService: BackendService) { }
 
   ngOnInit(): void {
+    this.ticket$ = this.route.paramMap.pipe(
+      switchMap((params: ParamMap) =>
+       this.backendService.ticket(+params.get('id')))
+    );
+    this.ticket$.subscribe(value =>
+      this.ticket = value)
   }
 
+  cancel(): void {
+    this.gotoTickets();
+  }
+  edit(): void {
+    this.isEdit = !this.isEdit;
+  }
+
+  save():void {
+    console.log(this.etatValue, this.userValue, this.ticket.id);
+
+    this.backendService.assign(this.ticket.id, this.userValue).subscribe(value => {
+      console.log(value);
+
+    });
+    this.backendService.complete(this.ticket.id, this.etatValue).subscribe(value => {
+      console.log(value);
+
+    });
+
+  }
+  gotoTickets(): void {
+    this.router.navigate(['../'], { relativeTo: this.route });
+  }
 }
