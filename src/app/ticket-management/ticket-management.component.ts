@@ -33,7 +33,7 @@ export class TicketManagementComponent implements OnInit {
     this.tickets$.subscribe((value: any) => {
       this.dataSource.data = value;
       this.dataSource.sort = this.sort;
-    })
+    });
 
   }
 
@@ -49,8 +49,8 @@ export class TicketManagementComponent implements OnInit {
         const body = {
           description: result
         };
-        this.backendService.newTicket(body).subscribe(value => {
-          this.dataSource = this.backendService.tickets();
+        this.backendService.newTicket(body).subscribe((value: any) => {
+          this.dataSource = this.backendService.tickets() as any;
 
         });
       }

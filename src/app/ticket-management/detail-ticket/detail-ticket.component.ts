@@ -27,8 +27,7 @@ export class DetailTicketComponent implements OnInit {
       switchMap((params: ParamMap) =>
        this.backendService.ticket(+params.get('id')))
     );
-    this.ticket$.subscribe(value =>
-      this.ticket = value)
+    this.ticket$.subscribe(value => this.ticket = value);
   }
 
   cancel(): void {
@@ -38,16 +37,11 @@ export class DetailTicketComponent implements OnInit {
     this.isEdit = !this.isEdit;
   }
 
-  save():void {
-    console.log(this.etatValue, this.userValue, this.ticket.id);
+  save(): void {
 
     this.backendService.assign(this.ticket.id, this.userValue).subscribe(value => {
-      console.log(value);
-
     });
     this.backendService.complete(this.ticket.id, this.etatValue).subscribe(value => {
-      console.log(value);
-
     });
 
   }
