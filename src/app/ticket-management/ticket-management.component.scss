@@ -2,3 +2,18 @@ mat-toolbar {
   display: flex;
   justify-content: space-between;
 }
+
+table ,tr{
+  width: 100%;
+
+}
+
+.mat-table {
+  & tr {
+    width: 100%;
+  }
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
